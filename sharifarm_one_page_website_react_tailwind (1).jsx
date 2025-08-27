@@ -1,361 +1,349 @@
-import React from "react";
-import { motion } from "framer-motion";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sharifarm — Bio & AgriTech for Resilient Farming</title>
+  <meta name="description" content="Sharifarm blends biology and technology to deliver water-saving devices, algae-integrated cooling, PFAS sensing & remediation, and climate-resilient planning." />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.png" />
+  <meta property="og:title" content="Sharifarm — Bio & AgriTech for Resilient Farming" />
+  <meta property="og:description" content="Smart, sustainable solutions for water, food, and climate resilience." />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta property="og:type" content="website" />
+  <style>
+    :root{
+      --bg:#0b1110;
+      --ink:#0f172a;
+      --muted:#475569;
+      --paper:#ffffff;
+      --brand:#0f766e;     /* teal */
+      --brand-2:#22c55e;   /* green */
+      --accent:#94a3b8;    /* slate */
+      --ring:rgba(34,197,94,.35);
+      --shadow:0 10px 30px rgba(15,118,110,.15);
+      --radius:18px;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0b1a1a;background:#f7fbfa}
+    a{color:var(--brand);text-decoration:none}
+    img{max-width:100%;height:auto}
+    .container{max-width:var(--max);margin-inline:auto;padding:24px}
+    /* Header */
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:8px 12px;border-radius:8px;box-shadow:var(--shadow)}
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #e2e8f0}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:40px;height:40px;border-radius:10px;object-fit:contain;background:#fff;border:1px solid #e2e8f0}
+    .brand .title{font-weight:800;letter-spacing:.2px}
+    .nav a{font-weight:600;color:#0f172a}
+    .menu{display:flex;gap:18px;align-items:center}
+    .cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow)}
+    .burger{display:none;background:none;border:0;padding:10px;border-radius:10px}
+    .burger:focus{outline:2px solid var(--ring)}
+    @media (max-width:840px){
+      .menu{display:none}
+      .menu.open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:#ffffff;border-bottom:1px solid #e2e8f0;padding:16px}
+      .burger{display:block}
+    }
+    /* Hero */
+    .hero{position:relative;isolation:isolate}
+    .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+    .badge{display:inline-flex;gap:8px;align-items:center;background:#ecfeff;border:1px solid #a7f3d0;color:#065f46;padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
+    .headline{font-size:clamp(32px,5vw,52px);line-height:1.05;margin:14px 0 10px}
+    .sub{font-size:18px;color:#334155;max-width:60ch}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:12px 16px;border:1px solid #0ea5a0;color:#065f46;background:#ffffff}
+    .btn:hover{background:#f0fdfa}
+    .card-hero{background:#ffffff;border:1px solid #e2e8f0;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+    .stat{background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:12px;text-align:center}
+    .stat h3{margin:4px 0;font-size:24px}
+    .stat p{margin:0;color:#64748b;font-size:12px}
+    @media (max-width:940px){
+      .hero .wrap{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+    }
+    /* Sections */
+    section{padding:64px 0;border-top:1px solid #e2e8f0;background:#fff}
+    section:nth-of-type(even){background:#f8fafc}
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .section-title h2{margin:0;font-size:28px}
+    .grid{display:grid;gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+    .card{background:#ffffff;border:1px solid #e2e8f0;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .icon{width:26px;height:26px}
+    .pill{display:inline-block;font-size:12px;background:#ecfeff;border:1px solid #a7f3d0;color:#065f46;border-radius:999px;padding:4px 10px;margin-right:6px}
+    ul.clean{margin:10px 0 0 18px;color:#475569}
+    /* Contact */
+    form{display:grid;gap:12px}
+    input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #cbd5e1;font:inherit}
+    input:focus,textarea:focus{outline:2px solid var(--ring);border-color:#94a3b8}
+    textarea{min-height:120px;resize:vertical}
+    /* Footer */
+    footer{background:#071412;color:#cbd5e1}
+    .foot{display:grid;gap:18px;grid-template-columns:2fr 1fr 1fr 1fr}
+    .foot a{color:#cbd5e1}
+    .copyright{border-top:1px solid rgba(203,213,225,.2);margin-top:18px;padding-top:18px;color:#94a3b8}
+    @media (max-width:900px){.foot{grid-template-columns:1fr 1fr}}
+  </style>
 
-// ---------------------------------------------
-// Sharifarm — AgriTech website (single‑file React)
-// Notes:
-// 1) Replace LOGO_URL with your logo file (PNG/SVG) when hosting.
-// 2) All photography uses dynamic Unsplash sources with keywords so you get
-//    real, natural images right away. Swap any URL with your own images later.
-// 3) Tailwind classes assume Tailwind is available in the environment (it is in ChatGPT canvas preview).
-// ---------------------------------------------
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Sharifarm",
+    "url":"https://www.sharifarm.com",
+    "logo":"https://www.sharifarm.com/assets/logo.png",
+    "sameAs":["https://www.linkedin.com/company/sharifarm"]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
 
-const LOGO_URL = "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/leaflet.svg"; // swap with your actual logo URL
-
-const IMAGES = {
-  hero: "https://source.unsplash.com/1600x900/?greenhouse,hydroponics,agriculture",
-  sensors: "https://source.unsplash.com/900x700/?plant,sensor,technology",
-  irrigation: "https://source.unsplash.com/900x700/?drip,irrigation,farm",
-  photobio: "https://source.unsplash.com/900x700/?algae,bioreactor,greenhouse",
-  analytics: "https://source.unsplash.com/900x700/?dashboard,data,analytics",
-  drone: "https://source.unsplash.com/1200x800/?drone,farmland",
-  lab: "https://source.unsplash.com/1200x800/?laboratory,chemistry",
-  field: "https://source.unsplash.com/1200x800/?wheat,field,agriculture",
-};
-
-const nav = [
-  { name: "Home", href: "#home" },
-  { name: "Solutions", href: "#solutions" },
-  { name: "Research", href: "#research" },
-  { name: "Pilots", href: "#pilots" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
-];
-
-const container = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-function SectionTitle({ kicker, title, subtitle }) {
-  return (
-    <div className="mx-auto max-w-3xl text-center">
-      {kicker && (
-        <div className="inline-block rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold tracking-wider text-emerald-700">
-          {kicker}
-        </div>
-      )}
-      <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{title}</h2>
-      {subtitle && (
-        <p className="mt-3 text-gray-600">{subtitle}</p>
-      )}
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Sharifarm logo" />
+        <span class="title">Sharifarm</span>
+      </div>
+      <nav class="menu" id="menu">
+        <a href="#solutions">Solutions</a>
+        <a href="#research">Research</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="cta">Contact</a>
+      </nav>
+      <button class="burger" aria-label="Toggle menu" aria-controls="menu" aria-expanded="false" id="burger">
+        <!-- hamburger icon -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
-  );
-}
+  </header>
 
-function Pill({ children }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-emerald-200 px-3 py-1 text-xs font-medium text-emerald-700">
-      {children}
-    </span>
-  );
-}
-
-export default function SharifarmSite() {
-  return (
-    <div className="min-h-screen scroll-smooth bg-white text-gray-900">
-      {/* NAVBAR */}
-      <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <a href="#home" className="flex items-center gap-3">
-            <img src={LOGO_URL} alt="Sharifarm logo" className="h-8 w-8" />
-            <span className="text-lg font-bold">Sharifarm</span>
-          </a>
-          <nav className="hidden gap-8 md:flex">
-            {nav.map((n) => (
-              <a key={n.name} href={n.href} className="text-sm font-medium text-gray-700 hover:text-emerald-700">
-                {n.name}
-              </a>
-            ))}
-          </nav>
-          <a
-            href="#contact"
-            className="hidden rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 md:inline-block"
-          >
-            Book a Demo
-          </a>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" aria-label="Intro">
+      <div class="container wrap">
+        <div>
+          <span class="badge">
+            <!-- leaf icon -->
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 20c10-1 14-5 16-16-11 2-15 6-16 16Z" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Bio + AgriTech
+          </span>
+          <h1 class="headline">Smart, sustainable solutions for water, food, and climate resilience.</h1>
+          <p class="sub">Sharifarm blends biology and engineering to reduce water use, cool facilities, and detect & remediate contaminants—helping farms and coastal operations thrive under climate stress.</p>
+          <div class="actions">
+            <a class="cta" href="#contact">Get in touch</a>
+            <a class="btn" href="#solutions">Explore solutions</a>
+          </div>
+          <div class="stats" aria-label="Impact metrics">
+            <div class="stat"><h3>30%+</h3><p>Cooling water saved*</p></div>
+            <div class="stat"><h3>15%+</h3><p>Energy reduction*</p></div>
+            <div class="stat"><h3>&lt; ppb</h3><p>PFAS sensing targets</p></div>
+            <div class="stat"><h3>4</h3><p>Active pilot lines</p></div>
+          </div>
+          <p style="color:#64748b;font-size:12px;margin-top:4px">*Early pilot estimates; results vary by site.</p>
         </div>
-      </header>
-
-      {/* HERO */}
-      <section id="home" className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={IMAGES.hero} alt="Greenhouse with rows of thriving plants" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+        <div class="card-hero">
+          <img src="assets/hero-image.jpg" alt="Modern greenhouse and aquaculture tanks with integrated algae panels (illustrative)" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-28 sm:py-36 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
-            <Pill>Biotech • Sensing • Water Intelligence</Pill>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
-              Sustainable agriculture powered by science & smart technology
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg text-white/80">
-              Sharifarm blends environmental chemistry, nanomaterials, and data to deliver practical solutions for farms, greenhouses, and aquaculture—saving water, monitoring quality, and boosting productivity.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#solutions" className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-emerald-700 shadow hover:shadow-md">Explore Solutions</a>
-              <a href="#contact" className="rounded-xl border border-white/70 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Talk to Us</a>
+      </div>
+    </section>
+
+    <!-- Solutions -->
+    <section id="solutions" aria-labelledby="solutions-title">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="solutions-title">Solutions</h2>
+          <span class="pill">R&D + Deployment</span>
+        </div>
+
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:-4px;margin-right:6px">
+                <circle cx="12" cy="12" r="9" stroke="#22c55e" stroke-width="2"/>
+                <path d="M8 12h8M12 8v8" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Water-Saving Device
+            </h3>
+            <p>Portable pre-shower capture device for homes, gyms, and field housing—simple install, fast ROI.</p>
+            <ul class="clean">
+              <li>Elastic mount + food-grade bag</li>
+              <li>5–10 L captured per use</li>
+              <li>Reuse for plants/cleanup</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:-4px;margin-right:6px">
+                <path d="M3 12c6-10 12-10 18 0-6 10-12 10-18 0Z" stroke="#0f766e" stroke-width="2"/>
+                <path d="M8 12a4 4 0 1 0 8 0" stroke="#22c55e" stroke-width="2"/>
+              </svg>
+              Algae-Integrated Cooling
+            </h3>
+            <p>Photobioreactor roofing/panels for aquaculture & greenhouses that provide shading, cooling, and biomass.</p>
+            <ul class="clean">
+              <li>Thermal + light management</li>
+              <li>Biomass for feed/bioproducts</li>
+              <li>Retrofit-friendly kits</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:-4px;margin-right:6px">
+                <rect x="3" y="4" width="18" height="14" rx="3" stroke="#0f766e" stroke-width="2"/>
+                <path d="M7 9h10M7 13h6" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              PFAS Sensing & Remediation
+            </h3>
+            <p>Chip-size fluorescence sensors and nano-enabled sorbents for rapid screening and treatment.</p>
+            <ul class="clean">
+              <li>Field-ready cartridges</li>
+              <li>&lt; minutes analysis</li>
+              <li>Modular remediation skids</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <strong>Also:</strong> Climate risk analytics & planning (IN-CORE / ClimRR), nature-based solutions design, and training for agencies & operators.
+        </div>
+      </div>
+    </section>
+
+    <!-- Research & News -->
+    <section id="research" aria-labelledby="research-title">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="research-title">Research & News</h2>
+          <a class="btn" href="#">View publications</a>
+        </div>
+        <div class="grid cols-3">
+          <article class="card">
+            <p class="pill">2025</p>
+            <h3>Triadic Interaction of Nanoparticles, PFAS & Root Exudates</h3>
+            <p>Surface-chemistry approach for water quality innovation using hydroponic testbeds.</p>
+          </article>
+          <article class="card">
+            <p class="pill">Pilot</p>
+            <h3>Algae PBR Roofing for Coastal Facilities</h3>
+            <p>Thermal/light management with measurable water savings and productivity gains.</p>
+          </article>
+          <article class="card">
+            <p class="pill">Toolkit</p>
+            <h3>Community Resilience Planning</h3>
+            <p>Open workflows that integrate climate scenarios, infrastructure risk, and NbS portfolios.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container grid cols-2">
+        <div>
+          <div class="section-title"><h2 id="about-title">About Sharifarm</h2></div>
+          <p>We are a science-driven team translating lab innovations into practical tools for farms, aquaculture, and cities. Our approach combines co-production with stakeholders, rigorous testing, and design for maintainability.</p>
+          <ul class="clean">
+            <li><strong>Mission:</strong> Enable resilient, low-footprint food and water systems.</li>
+            <li><strong>Values:</strong> Evidence, openness, and community partnership.</li>
+            <li><strong>HQ:</strong> El Paso, TX · Projects across the US & abroad.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img src="assets/about.jpg" alt="Team testing sensors and algae panels in a greenhouse (illustrative)" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="contact-title">Contact</h2>
+          <p style="margin:0;color:#475569">Tell us about your site or pilot idea.</p>
+        </div>
+        <!-- Use your Formspree/Netlify endpoint or a mailto: fallback -->
+        <form action="mailto:hello@sharifarm.com" method="post" enctype="text/plain">
+          <div class="grid cols-2">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" placeholder="Your name" required>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* TRUST BAR */}
-      <section aria-label="partners" className="border-b border-gray-100 bg-gray-50/60">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
-            <span>Trusted by researchers & growers across</span>
-            <Pill>Universities</Pill>
-            <Pill>Greenhouse Ops</Pill>
-            <Pill>Aquaculture</Pill>
-            <Pill>Local Governments</Pill>
-          </div>
-        </div>
-      </section>
-
-      {/* SOLUTIONS */}
-      <section id="solutions" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <SectionTitle
-          kicker="Solutions"
-          title="From sensing to savings—one integrated platform"
-          subtitle="Modular tools you can adopt individually or as a full stack."
-        />
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              title: "Leaf & Soil Sensors",
-              img: IMAGES.sensors,
-              desc: "Wireless probes track pH, EC, DO, nutrients, and PFAS indicators in real time.",
-              bullets: ["Plug‑and‑play", "LoRa/4G", "Battery 18+ mo"],
-            },
-            {
-              title: "Smart Irrigation",
-              img: IMAGES.irrigation,
-              desc: "AI‑assisted schedules cut water use 20–40% while protecting yields.",
-              bullets: ["Valve control", "Weather sync", "Leak alerts"],
-            },
-            {
-              title: "Algae Photobioreactor Roofs",
-              img: IMAGES.photobio,
-              desc: "Shading + cooling + biomass: integrated panels for greenhouses & hatcheries.",
-              bullets: ["Retrofit kits", "Thermal benefits", "Nutrient uptake"],
-            },
-            {
-              title: "Water Quality Analytics",
-              img: IMAGES.analytics,
-              desc: "Dashboards turn lab + sensor data into decisions, with alerts & reports.",
-              bullets: ["PFAS flags", "Custom KPIs", "CSV/API export"],
-            },
-          ].map((c) => (
-            <motion.article key={c.title} variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md">
-              <div className="relative h-44 w-full overflow-hidden">
-                <img src={c.img} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
-              </div>
-              <div className="space-y-3 p-5">
-                <h3 className="text-lg font-semibold text-gray-900">{c.title}</h3>
-                <p className="text-sm text-gray-600">{c.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {c.bullets.map((b) => (
-                    <Pill key={b}>{b}</Pill>
-                  ))}
-                </div>
-                <a href="#contact" className="inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-800">Request details →</a>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section className="bg-gradient-to-br from-emerald-50 to-white">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <SectionTitle
-            kicker="How it works"
-            title="Start small. Scale fast."
-            subtitle="We co‑design pilots with you, then expand to full operations."
-          />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              { n: "01", title: "Site Assessment", text: "We review water use, environmental risks, and existing infrastructure." },
-              { n: "02", title: "Pilot & Training", text: "Install a low‑risk pilot. Your team learns by doing with our support." },
-              { n: "03", title: "Scale & Integrate", text: "Connect sensors, analytics, and controls across your operation." },
-            ].map((s) => (
-              <div key={s.n} className="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
-                <div className="text-emerald-700">{s.n}</div>
-                <h4 className="mt-1 text-xl font-semibold">{s.title}</h4>
-                <p className="mt-2 text-gray-600">{s.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PILOTS / CASES */}
-      <section id="pilots" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <SectionTitle
-          kicker="Pilots"
-          title="Real environments, measurable impact"
-          subtitle="Examples from fields, labs, and coastal facilities."
-        />
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {[{
-            title: "Smart irrigation cuts water 32%",
-            img: IMAGES.field,
-            body: "Soil‑moisture + weather automation reduced water use while maintaining yields in semi‑arid plots.",
-            stats: ["-32% water", "+2% yield", "3‑month ROI"],
-          }, {
-            title: "PFAS early‑warning in aquaculture",
-            img: IMAGES.lab,
-            body: "Sensor + lab protocol flagged anomalies within 24h, preventing stock loss and costly shutdowns.",
-            stats: ["24h alerts", "Zero downtime", "Reg‑ready logs"],
-          }].map((k) => (
-            <article key={k.title} className="overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
-              <div className="relative h-56 w-full">
-                <img src={k.img} alt={k.title} className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold">{k.title}</h3>
-                <p className="mt-2 text-gray-600">{k.body}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {k.stats.map((s) => (
-                    <Pill key={s}>{s}</Pill>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* RESEARCH */}
-      <section id="research" className="bg-gray-50/60">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <SectionTitle
-            kicker="Research"
-            title="Peer‑reviewed science behind Sharifarm"
-            subtitle="Selected publications and ongoing projects."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            {[
-              {
-                title: "Nano‑enabled microalgae reactors for water quality & cooling",
-                outlet: "ACS (2025)",
-                link: "#",
-              },
-              {
-                title: "Surface chemistry approach to PFAS detection in hydroponics",
-                outlet: "EST Eng. (2025)",
-                link: "#",
-              },
-              {
-                title: "Smart irrigation scheduling with multi‑sensor data fusion",
-                outlet: "Agri‑Systems (2024)",
-                link: "#",
-              },
-            ].map((p) => (
-              <a key={p.title} href={p.link} className="group block rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:shadow-md">
-                <h3 className="text-lg font-semibold group-hover:text-emerald-700">{p.title}</h3>
-                <p className="mt-2 text-sm text-gray-600">{p.outlet}</p>
-                <span className="mt-4 inline-block text-sm font-semibold text-emerald-700">View abstract →</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT */}
-      <section id="about" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 md:grid-cols-2">
-          <div className="relative overflow-hidden rounded-2xl">
-            <img src={IMAGES.drone} alt="Drone surveying farmland for precision agriculture" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            <div>
+              <label for="email">Email</label>
+              <input id="email" type="email" name="email" placeholder="you@company.com" required>
+            </div>
           </div>
           <div>
-            <SectionTitle title="Science‑first. Field‑ready." subtitle="We’re a team of environmental chemists, engineers, and growers building practical technology that respects farm realities." />
-            <ul className="mt-6 space-y-3 text-gray-700">
-              <li>• Led by Dr. Sharifan (UTEP) with partners across FAU, FIU, and local growers.</li>
-              <li>• Focus areas: PFAS sensing, algae‑based cooling, water‑use efficiency, and resilience planning.</li>
-              <li>• We co‑produce solutions with communities to ensure adoption and equity.</li>
-            </ul>
+            <label for="msg">Message</label>
+            <textarea id="msg" name="message" placeholder="What challenge are you tackling?"></textarea>
           </div>
-        </div>
-      </section>
+          <button class="cta" type="submit">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
 
-      {/* CONTACT */}
-      <section id="contact" className="bg-emerald-700">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-bold text-white">Let’s design your pilot</h2>
-              <p className="mt-2 max-w-lg text-emerald-50">
-                Share a bit about your operation and goals. We’ll respond with a simple pilot plan and budget range.
-              </p>
-              <div className="mt-6 space-y-2 text-emerald-50">
-                <div>📧 hello@sharifarm.io</div>
-                <div>📍 El Paso, TX • Boca Raton, FL</div>
-              </div>
-            </div>
-
-            <form
-              className="rounded-2xl bg-white p-6 shadow-xl"
-              action="mailto:hello@sharifarm.io"
-              method="post"
-              encType="text/plain"
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Name
-                  <input name="name" required className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none" />
-                </label>
-                <label className="block text-sm font-medium text-gray-700">
-                  Email
-                  <input name="email" type="email" required className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none" />
-                </label>
-                <label className="block text-sm font-medium text-gray-700 sm:col-span-2">
-                  Organization
-                  <input name="org" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none" />
-                </label>
-                <label className="block text-sm font-medium text-gray-700 sm:col-span-2">
-                  What are you hoping to solve?
-                  <textarea name="message" rows={4} className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none" />
-                </label>
-              </div>
-              <button type="submit" className="mt-4 w-full rounded-xl bg-emerald-600 px-4 py-3 font-semibold text-white shadow hover:bg-emerald-700">Send</button>
-              <p className="mt-2 text-center text-xs text-gray-500">This form uses mailto:. Swap to your CRM later (Netlify/Vercel serverless or Formspree).</p>
-            </form>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>
+          <div class="brand">
+            <img src="assets/logo.png" alt="" />
+            <span class="title" style="color:#e2e8f0">Sharifarm</span>
           </div>
+          <p style="margin-top:10px;color:#9fb3b7">Bio & AgriTech for resilient farming and water quality.</p>
         </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-gray-100">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div className="flex items-center gap-3">
-              <img src={LOGO_URL} alt="Sharifarm logo" className="h-6 w-6" />
-              <span className="text-sm font-semibold">Sharifarm</span>
-            </div>
-            <div className="text-xs text-gray-500">© {new Date().getFullYear()} Sharifarm. All rights reserved.</div>
-            <div className="flex gap-4 text-sm">
-              <a href="#privacy" className="text-gray-500 hover:text-gray-700">Privacy</a>
-              <a href="#terms" className="text-gray-500 hover:text-gray-700">Terms</a>
-            </div>
-          </div>
+        <div>
+          <h4>Company</h4>
+          <a href="#about">About</a><br/>
+          <a href="#research">Research</a><br/>
+          <a href="#solutions">Solutions</a>
         </div>
-      </footer>
+        <div>
+          <h4>Resources</h4>
+          <a href="#">Publications</a><br/>
+          <a href="#">One-pager (PDF)</a><br/>
+          <a href="#">Press kit</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="mailto:hello@sharifarm.com">hello@sharifarm.com</a><br/>
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="copyright">© <span id="year"></span> Sharifarm. All rights reserved.</div>
     </div>
-  );
-}
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
